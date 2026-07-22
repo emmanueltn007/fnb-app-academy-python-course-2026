@@ -88,8 +88,6 @@ print(f"Class average: {class_average}%")
 print(f"Highest mark: {highest_mark['name']} with {highest_mark['average']}%")
 print(f"Lowest mark: {lowest_mark['name']} with {lowest_mark['average']}%")
 
-# Use a while loop to let the user search for a student by name after the report is shown
-
 while True:
     choice = input("Do you want to search for a specific student (y/n) ? ").lower().strip()
     
