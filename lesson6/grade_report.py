@@ -14,15 +14,32 @@ results = []
 
 def student_results(name, average_mark, grade, status):
     results.append({"name": name, "average": average_mark, "grade": grade, "status": status})
+    
+def search_student(name):
+    for student in students:
+        average_mark = round((student["Mathematics"] + student["Accounting"] + student["Economics"]) / 3)
+        
+        if student["full_name"] == name:
+            print(f"{student['full_name']}")
+            print(f"Accounting: {student['Accounting']}%")
+            print(f"Economics: {student['Economics']}%")
+            print(f"Mathematics: {student['Mathematics']}%")
+            print(f"Average: {average_mark}%")
+            return
+    print(f"{name} not found, please try another name.")
 
-print("\n --- Student Report ---")
+print("\n --- STUDENT REPORT ---")
+
+print("--" * 25)
 
 for i, student in enumerate(students, start = 1):
     average_mark = round((student["Mathematics"] + student["Accounting"] + student["Economics"]) / 3)
     
-    print(f"{i}. {student['full_name']}")
-    
-    print(f"   Average %: {average_mark}")
+    print(f"{i}. Student full name: {student['full_name']}")
+    print(f"   Accounting: {student['Accounting']}%")
+    print(f"   Economics: {student['Economics']}%")
+    print(f"   Mathematics: {student['Mathematics']}%")
+    print(f"   Average: {average_mark}%")
     
     grade = ""
     
@@ -57,13 +74,29 @@ for i, student in enumerate(students, start = 1):
     
     student_results(name, average_mark, grade, status)
     
-print("\n --- Class Report ---")
+print("\n --- CLASS REPORT ---")
 
-#  Build a results list of dictionaries containing: name, average, grade, status
+print("--" * 25)
 
-# After the main loop, calculate: class average, highest mark, lowest mark
+class_average = round(sum(r["average"] for r in results) / len(results))
 
-# Display a formatted class report showing individual results and class statistics
+highest_mark = max(results, key = lambda r: r["average"])
+
+lowest_mark = min(results, key = lambda r: r["average"])
+
+print(f"Class average: {class_average}%")
+print(f"Highest mark: {highest_mark['name']} with {highest_mark['average']}%")
+print(f"Lowest mark: {lowest_mark['name']} with {lowest_mark['average']}%")
 
 # Use a while loop to let the user search for a student by name after the report is shown
+
+while True:
+    choice = input("Do you want to search for a specific student (y/n) ? ").lower().strip()
+    
+    if choice == "y":
+        student_to_search = input("Enter student full name to search: ").title()
+        
+        search_student(student_to_search)
+    else: 
+        break
 
